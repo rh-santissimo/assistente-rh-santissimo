@@ -8,9 +8,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy-950:#0a1a2f;
-    --navy-900:#0c2340;
-    --navy-800:#123458;
+    --navy-950:#0d2318;
+    --navy-900:#1d4430;
+    --navy-800:#2a5940;
     --gold-500:#c9a227;
     --gold-300:#e3c766;
     --cream-050:#fbf8f0;
@@ -34,28 +34,28 @@
   .app-header{
     background:linear-gradient(135deg, var(--navy-900), var(--navy-800));
     color:#fff;
-    padding:16px 18px;
-    display:flex;align-items:center;gap:12px;
+    padding:20px 20px;
+    display:flex;align-items:center;gap:16px;
     flex:none;
     box-shadow:0 2px 10px rgba(10,26,47,0.15);
   }
   .avatar{
-    width:44px;height:44px;border-radius:50%;
+    width:84px;height:84px;border-radius:50%;
     background:radial-gradient(circle at 32% 28%, var(--navy-800), var(--navy-950));
-    border:1.5px solid rgba(255,255,255,0.3);
+    border:2px solid rgba(255,255,255,0.3);
     display:flex;align-items:center;justify-content:center;
     flex:none;
   }
-  .avatar img{width:66%;height:66%;object-fit:contain;}
+  .avatar img{width:74%;height:74%;object-fit:contain;}
   .who .name{
     font-family:'Cormorant Garamond',serif;
-    font-weight:700;font-size:19px;line-height:1.15;
+    font-weight:700;font-size:23px;line-height:1.15;
   }
   .who .status{
-    font-size:11.5px;color:var(--gold-300);
-    display:flex;align-items:center;gap:6px;margin-top:3px;
+    font-size:12.5px;color:var(--gold-300);
+    display:flex;align-items:center;gap:6px;margin-top:5px;
   }
-  .dot{width:6px;height:6px;border-radius:50%;background:#4ade80;flex:none;}
+  .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;flex:none;}
 
   .chat-body{
     flex:1;overflow-y:auto;min-height:0;
@@ -154,13 +154,23 @@
 
   .footer-note{
     text-align:center;font-size:10.5px;color:var(--muted);
-    padding-top:8px;
+    padding-top:12px;
   }
-  .footer-note button{
-    background:none;border:none;color:var(--muted);
-    font-size:10.5px;text-decoration:underline;cursor:pointer;font-family:inherit;
-    padding:0;
+  .restart-btn{
+    display:block;width:100%;
+    background:#fff;
+    border:2px solid var(--gold-500);
+    color:var(--navy-900);
+    font-size:15px;font-weight:700;
+    font-family:inherit;
+    padding:12px 20px;
+    border-radius:24px;
+    cursor:pointer;
+    max-width:720px;margin:0 auto;
+    transition:background .15s, color .15s;
   }
+  .restart-btn:hover{background:var(--gold-500); color:#fff;}
+  .restart-btn:active{transform:scale(0.98);}
 
   .typing{
     align-self:flex-start;
@@ -199,7 +209,8 @@
         <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
       </button>
     </div>
-    <div class="footer-note">Departamento de Recursos Humanos · Santíssimo Resort — <button id="resetBtn">reiniciar conversa</button></div>
+    <button class="restart-btn" id="resetBtn">🔄 Reiniciar conversa</button>
+    <div class="footer-note">Departamento de Recursos Humanos · Santíssimo Resort</div>
   </div>
 
 <script>
