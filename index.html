@@ -225,8 +225,9 @@
 
   const QUICK = [
     {label:"Data da rescisão", key:"rescisao"},
-    {label:"Quitação rescisória", key:"quitacao"},
+    {label:"Devolução dos uniformes", key:"uniformes"},
     {label:"Exame demissional", key:"exame"},
+    {label:"Quitação rescisória", key:"quitacao"},
     {label:"Seguro-desemprego", key:"seguro"},
     {label:"Falar com um analista", key:"humano"},
   ];
@@ -236,13 +237,19 @@
       key:"rescisao",
       test:/rescis[aã]o|desligamento|demiss[aã]o|último dia|data.*sa[íi]da/i,
       tag:"Data da rescisão",
-      reply:"Após o seu desligamento, ficam definidos três prazos importantes, todos contados a partir da data do seu comunicado:\n• *Quitação rescisória*\n• *Exame demissional*\n• *Entrega dos uniformes*\n\nSe tiver dúvida sobre alguma dessas datas, escreva *\"falar com analista\"* que um profissional do RH confirma com você."
+      reply:"Após o seu desligamento, ficam definidos três prazos importantes, todos contados a partir da data do seu comunicado:\n• *Entrega dos uniformes*\n• *Exame demissional*\n• *Quitação rescisória*\n\nEsse comunicado já está com você, assinado, e já traz essas datas marcadas para você comparecer."
+    },
+    {
+      key:"uniformes",
+      test:/uniforme/i,
+      tag:"Devolução dos uniformes",
+      reply:"A devolução dos uniformes antes da rescisão é fundamental. Verifique a data em seu documento e compareça ao Departamento de Recursos Humanos do Santíssimo Resort para a devolução."
     },
     {
       key:"quitacao",
       test:/quita[cç][aã]o|verbas|pagamento|acerto|tr[cç]t|dinheiro/i,
       tag:"Quitação rescisória",
-      reply:"O prazo padrão para pagamento das verbas rescisórias (quitação) é de até *10 dias corridos* contados a partir do término do contrato, conforme Art. 477, §6º da CLT.\n\nA quitação será feita no dia indicado no comunicado assinado por você, no seguinte endereço:\nRua Frederico Ozanam, nº 345 D, bairro Pacú, Tiradentes, MG — escritório R&B."
+      reply:"O prazo padrão para pagamento das verbas rescisórias (quitação) é de até *10 dias corridos* contados a partir do término do contrato, conforme Art. 477, §6º da CLT.\n\nA quitação será feita no dia indicado no comunicado assinado por você, no seguinte endereço:\nRua Frederico Ozanam, nº 345 D, bairro Pacú, Tiradentes, MG — escritório R&B.\n\nObs.: realize a devolução dos uniformes antes de comparecer a este endereço para a quitação rescisória."
     },
     {
       key:"exame",
@@ -254,13 +261,13 @@
       key:"seguro",
       test:/seguro.?desemprego|guia do seguro/i,
       tag:"Seguro-desemprego",
-      reply:"Quando aplicável, a guia do seguro-desemprego é emitida pelo RH junto com os demais documentos da rescisão, dentro do mesmo prazo de 10 dias corridos.\n\nO requerimento em si é feito pelo colaborador no aplicativo ou site oficial da Carteira de Trabalho Digital, com essa guia em mãos."
+      reply:"Quando aplicável, a guia do seguro-desemprego é emitida pelo DP junto com os demais documentos no dia da rescisão, dentro do mesmo prazo de 10 dias corridos.\n\nO requerimento em si é feito pelo colaborador no aplicativo ou site oficial da Carteira de Trabalho Digital, com essa guia em mãos."
     },
     {
       key:"humano",
       test:/analista|humano|atendente|pessoa|rh mesmo|falar com alguém/i,
       tag:"Encaminhamento",
-      reply:"Perfeito, já vou encaminhar sua conversa para um analista do RH do Santíssimo Resort. Em breve alguém dará continuidade por aqui com as informações específicas do seu caso."
+      reply:"Perfeito, encaminhe um e-mail para um analista do RH do Santíssimo Resort. Em breve alguém dará continuidade com as informações específicas do seu caso.\n\nE-mail: rh.ex@santissimoresort.com.br"
     },
   ];
 
