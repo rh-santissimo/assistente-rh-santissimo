@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>RH Santíssimo Resort — Canal para ex-colaboradores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#0a1a2f;
+    --navy-900:#0c2340;
+    --navy-800:#123458;
+    --gold-500:#c9a227;
+    --gold-300:#e3c766;
+    --cream-050:#fbf8f0;
+    --ink:#182234;
+    --muted:#6b7688;
+    --bubble-in:#ffffff;
+    --bubble-out:#fdf3d6;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream-050);
+    height:100vh;
+    height:100dvh;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+
+  .app-header{
+    background:linear-gradient(135deg, var(--navy-900), var(--navy-800));
+    color:#fff;
+    padding:16px 18px;
+    display:flex;align-items:center;gap:12px;
+    flex:none;
+    box-shadow:0 2px 10px rgba(10,26,47,0.15);
+  }
+  .avatar{
+    width:44px;height:44px;border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, var(--navy-800), var(--navy-950));
+    border:1.5px solid rgba(255,255,255,0.3);
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  .avatar img{width:66%;height:66%;object-fit:contain;}
+  .who .name{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:700;font-size:19px;line-height:1.15;
+  }
+  .who .status{
+    font-size:11.5px;color:var(--gold-300);
+    display:flex;align-items:center;gap:6px;margin-top:3px;
+  }
+  .dot{width:6px;height:6px;border-radius:50%;background:#4ade80;flex:none;}
+
+  .chat-body{
+    flex:1;overflow-y:auto;min-height:0;
+    padding:18px 16px 10px;
+    display:flex;flex-direction:column;gap:10px;
+    max-width:720px;width:100%;margin:0 auto;
+  }
+  .chat-body::-webkit-scrollbar{width:5px;}
+  .chat-body::-webkit-scrollbar-thumb{background:rgba(12,35,64,0.15);border-radius:10px;}
+
+  .bubble{
+    max-width:86%;
+    padding:11px 14px;
+    border-radius:16px;
+    font-size:14.5px;
+    line-height:1.55;
+    box-shadow:0 1px 2px rgba(10,26,47,0.05);
+    white-space:pre-line;
+  }
+  .bubble.bot{
+    align-self:flex-start;
+    background:var(--bubble-in);
+    color:var(--ink);
+    border-top-left-radius:4px;
+    border:1px solid rgba(12,35,64,0.06);
+  }
+  .bubble.bot .tag{
+    display:block;font-size:11px;color:var(--gold-500);
+    font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .bubble.user{
+    align-self:flex-end;
+    background:var(--bubble-out);
+    color:var(--navy-950);
+    border-top-right-radius:4px;
+  }
+  .bubble .time{
+    display:block;text-align:right;
+    font-size:10.5px;color:var(--muted);
+    margin-top:5px;
+  }
+
+  .quick-replies{
+    display:flex;flex-wrap:wrap;gap:7px;
+    padding:2px 16px 12px;
+    flex:none;
+    max-width:720px;width:100%;margin:0 auto;
+    box-sizing:border-box;
+  }
+  .chip{
+    border:1px solid var(--navy-800);
+    color:var(--navy-900);
+    background:#fff;
+    font-size:12.5px;
+    padding:8px 13px;
+    border-radius:18px;
+    cursor:pointer;
+    font-family:inherit;
+    transition:background .15s, color .15s;
+  }
+  .chip:hover{background:var(--navy-900); color:#fff;}
+  .chip:active{transform:scale(0.98);}
+
+  .composer-wrap{
+    flex:none;
+    background:var(--cream-050);
+    border-top:1px solid rgba(12,35,64,0.08);
+    padding:10px 16px calc(14px + env(safe-area-inset-bottom));
+  }
+  .composer{
+    display:flex;align-items:center;gap:10px;
+    max-width:720px;width:100%;margin:0 auto;
+  }
+  .composer input{
+    flex:1;
+    border:1px solid rgba(12,35,64,0.15);
+    background:#fff;
+    border-radius:22px;
+    padding:12px 16px;
+    font-size:14.5px;
+    font-family:inherit;
+    outline:none;
+    color:var(--ink);
+  }
+  .composer input:focus{border-color:var(--gold-500);}
+  .send-btn{
+    width:42px;height:42px;border-radius:50%;
+    background:var(--navy-900);
+    border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  .send-btn svg{width:17px;height:17px;fill:var(--gold-300);}
+  .send-btn:active{transform:scale(0.94);}
+
+  .footer-note{
+    text-align:center;font-size:10.5px;color:var(--muted);
+    padding-top:8px;
+  }
+  .footer-note button{
+    background:none;border:none;color:var(--muted);
+    font-size:10.5px;text-decoration:underline;cursor:pointer;font-family:inherit;
+    padding:0;
+  }
+
+  .typing{
+    align-self:flex-start;
+    background:var(--bubble-in);
+    border:1px solid rgba(12,35,64,0.06);
+    border-top-left-radius:4px;
+    padding:11px 15px;border-radius:16px;
+    display:flex;gap:4px;
+  }
+  .typing span{
+    width:6px;height:6px;border-radius:50%;background:var(--navy-800);opacity:.5;
+    animation:blink 1.1s infinite;
+  }
+  .typing span:nth-child(2){animation-delay:.15s;}
+  .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes blink{0%,80%,100%{opacity:.25;}40%{opacity:.9;}}
+</style>
+</head>
+<body>
+
+  <div class="app-header">
+    <div class="avatar"><img src="data:image/png;base64,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" alt="Santíssimo Resort" /></div>
+    <div class="who">
+      <div class="name">RH · Santíssimo Resort</div>
+      <div class="status"><span class="dot"></span>Canal para ex-colaboradores</div>
+    </div>
+  </div>
+
+  <div class="chat-body" id="chatBody"></div>
+  <div class="quick-replies" id="quickReplies"></div>
+
+  <div class="composer-wrap">
+    <div class="composer">
+      <input id="msgInput" type="text" placeholder="Digite sua dúvida..." />
+      <button class="send-btn" id="sendBtn" aria-label="Enviar">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+      </button>
+    </div>
+    <div class="footer-note">Departamento de Recursos Humanos · Santíssimo Resort — <button id="resetBtn">reiniciar conversa</button></div>
+  </div>
+
+<script>
+(function(){
+  const chatBody = document.getElementById('chatBody');
+  const quickWrap = document.getElementById('quickReplies');
+  const input = document.getElementById('msgInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  const WELCOME = "Olá! 👋 Este é o canal automático do *RH do Santíssimo Resort* para ex-colaboradores.\n\nPosso te ajudar agora mesmo com dúvidas sobre:";
+
+  const QUICK = [
+    {label:"Data da rescisão", key:"rescisao"},
+    {label:"Quitação rescisória", key:"quitacao"},
+    {label:"Exame demissional", key:"exame"},
+    {label:"Seguro-desemprego", key:"seguro"},
+    {label:"Falar com um analista", key:"humano"},
+  ];
+
+  const RULES = [
+    {
+      key:"rescisao",
+      test:/rescis[aã]o|desligamento|demiss[aã]o|último dia|data.*sa[íi]da/i,
+      tag:"Data da rescisão",
+      reply:"Após o seu desligamento, ficam definidos três prazos importantes, todos contados a partir da data do seu comunicado:\n• *Quitação rescisória*\n• *Exame demissional*\n• *Entrega dos uniformes*\n\nSe tiver dúvida sobre alguma dessas datas, escreva *\"falar com analista\"* que um profissional do RH confirma com você."
+    },
+    {
+      key:"quitacao",
+      test:/quita[cç][aã]o|verbas|pagamento|acerto|tr[cç]t|dinheiro/i,
+      tag:"Quitação rescisória",
+      reply:"O prazo padrão para pagamento das verbas rescisórias (quitação) é de até *10 dias corridos* contados a partir do término do contrato, conforme Art. 477, §6º da CLT.\n\nA quitação será feita no dia indicado no comunicado assinado por você, no seguinte endereço:\nRua Frederico Ozanam, nº 345 D, bairro Pacú, Tiradentes, MG — escritório R&B."
+    },
+    {
+      key:"exame",
+      test:/exame demissional|exame médico|aso|medicina do trabalho/i,
+      tag:"Exame demissional",
+      reply:"O exame demissional é agendado pela Medicina do Trabalho e deve ocorrer *antes* da homologação da rescisão, dentro do prazo dos 10 dias corridos.\n\nO agendamento é enviado por mensagem, e-mail ou documento físico, sempre com a data marcada. Se ainda não recebeu, escreva *\"falar com analista\"*."
+    },
+    {
+      key:"seguro",
+      test:/seguro.?desemprego|guia do seguro/i,
+      tag:"Seguro-desemprego",
+      reply:"Quando aplicável, a guia do seguro-desemprego é emitida pelo RH junto com os demais documentos da rescisão, dentro do mesmo prazo de 10 dias corridos.\n\nO requerimento em si é feito pelo colaborador no aplicativo ou site oficial da Carteira de Trabalho Digital, com essa guia em mãos."
+    },
+    {
+      key:"humano",
+      test:/analista|humano|atendente|pessoa|rh mesmo|falar com alguém/i,
+      tag:"Encaminhamento",
+      reply:"Perfeito, já vou encaminhar sua conversa para um analista do RH do Santíssimo Resort. Em breve alguém dará continuidade por aqui com as informações específicas do seu caso."
+    },
+  ];
+
+  const FALLBACK = "Essa dúvida é específica do seu caso, então prefiro não arriscar uma resposta genérica. Já estou encaminhando para um analista do RH do Santíssimo Resort continuar com você por aqui.\n\nSe quiser, também pode escolher um dos temas abaixo.";
+
+  function nowTime(){
+    const d = new Date();
+    return d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  }
+  function scrollToBottom(){ chatBody.scrollTop = chatBody.scrollHeight; }
+
+  function addBubble({from, text, tag}){
+    const div = document.createElement('div');
+    div.className = 'bubble ' + (from === 'user' ? 'user' : 'bot');
+    const tagHtml = tag ? '<span class="tag">'+tag+'</span>' : '';
+    div.innerHTML = tagHtml + escapeHtml(text).replace(/\n/g,'<br>') + '<span class="time">'+nowTime()+'</span>';
+    chatBody.appendChild(div);
+    scrollToBottom();
+  }
+  function escapeHtml(str){
+    return str.replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    }).replace(/\*(.*?)\*/g, '<b>$1</b>');
+  }
+  function showTyping(callback, delay){
+    const div = document.createElement('div');
+    div.className = 'typing';
+    div.id = 'typingIndicator';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    chatBody.appendChild(div);
+    scrollToBottom();
+    setTimeout(function(){
+      const el = document.getElementById('typingIndicator');
+      if(el) el.remove();
+      callback();
+    }, delay || 650);
+  }
+  function botReplyFor(text){
+    const rule = RULES.find(r => r.test.test(text));
+    if(rule){
+      showTyping(function(){ addBubble({from:'bot', text:rule.reply, tag:rule.tag}); });
+    } else {
+      showTyping(function(){ addBubble({from:'bot', text:FALLBACK, tag:'Encaminhamento'}); });
+    }
+  }
+  function handleUserMessage(text){
+    if(!text.trim()) return;
+    addBubble({from:'user', text:text});
+    input.value = '';
+    botReplyFor(text);
+  }
+  function renderQuickReplies(){
+    quickWrap.innerHTML = '';
+    QUICK.forEach(function(q){
+      const btn = document.createElement('button');
+      btn.className = 'chip';
+      btn.textContent = q.label;
+      btn.onclick = function(){ handleUserMessage(q.label); };
+      quickWrap.appendChild(btn);
+    });
+  }
+  function startConversation(){
+    chatBody.innerHTML = '';
+    addBubble({from:'bot', text:WELCOME, tag:'RH Santíssimo Resort'});
+    renderQuickReplies();
+  }
+
+  sendBtn.addEventListener('click', function(){ handleUserMessage(input.value); });
+  input.addEventListener('keydown', function(e){ if(e.key === 'Enter') handleUserMessage(input.value); });
+  resetBtn.addEventListener('click', startConversation);
+
+  startConversation();
+})();
+</script>
+
+</body>
+</html>
