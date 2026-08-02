@@ -229,6 +229,8 @@
     {label:"Exame demissional", key:"exame"},
     {label:"Quitação rescisória", key:"quitacao"},
     {label:"Seguro-desemprego", key:"seguro"},
+    {label:"Devolução de bens corporativos", key:"bens"},
+    {label:"Premiação (Check-in da Vitória)", key:"premiacao"},
     {label:"Falar com um analista", key:"humano"},
   ];
 
@@ -262,6 +264,18 @@
       test:/seguro.?desemprego|guia do seguro/i,
       tag:"Seguro-desemprego",
       reply:"Quando aplicável, a guia do seguro-desemprego é emitida pelo DP junto com os demais documentos no dia da rescisão, dentro do mesmo prazo de 10 dias corridos.\n\nO requerimento em si é feito pelo colaborador no aplicativo ou site oficial da Carteira de Trabalho Digital, com essa guia em mãos."
+    },
+    {
+      key:"bens",
+      test:/bens corporativos|crach[aá]|not[eé]book|celular corporativo|chaves da empresa|equipamentos? da empresa/i,
+      tag:"Devolução de bens corporativos",
+      reply:"A devolução de bens corporativos (crachá, chaves, notebook, celular e equipamentos) ocorre no momento do seu desligamento da empresa."
+    },
+    {
+      key:"premiacao",
+      test:/premia[cç][aã]o|check-?in da vit[oó]ria|b[oô]nus/i,
+      tag:"Premiação (Check-in da Vitória)",
+      reply:"Sim, se você estiver dentro das regras da premiação do documento \"Check-in da Vitória\", as condições para estar apto dependem das regras e metas ali determinadas. Ok."
     },
     {
       key:"humano",
